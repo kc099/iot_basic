@@ -1,0 +1,6 @@
+package com.indusrain.iot_basic
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity: FlutterActivity() {
+}
