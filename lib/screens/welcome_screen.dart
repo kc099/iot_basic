@@ -6,6 +6,7 @@ import 'package:iot_basic/screens/register_screen.dart';
 class WelcomeScreen extends StatefulWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
   static const String id = 'welcome_screen';
+
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
@@ -30,40 +31,40 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
+            Flexible(
+              child: SizedBox(
+                height: 200.0,
+                child: Image.asset('images/logo.jpg'),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const <Widget>[
-                Text(
-                  'IndusRain',
-                  style: TextStyle(
-                    // color: Color(0xff1e88e5),
-                    color: Color(0xff1976d2),
-                    fontSize: 45.0,
-                    fontWeight: FontWeight.w900,
-                  ),
+              children: <Widget>[
+                RoundedButton(
+                  title: 'Log In',
+                  colour: const Color(0xf00a1cce),
+                  onPressed: () {
+                    Navigator.pushNamed(context, LoginScreen.id);
+                  },
                 ),
               ],
             ),
-            const SizedBox(
-              height: 48.0,
-            ),
-            RoundedButton(
-              title: 'Log In',
-              colour: Colors.lightBlueAccent,
-              onPressed: () {
-                Navigator.pushNamed(context, LoginScreen.id);
-              },
-            ),
-            RoundedButton(
-              title: 'Register',
-              colour: Colors.blueAccent,
-              onPressed: () {
-                Navigator.pushNamed(context, RegisterScreen.id);
-              },
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                RoundedButton(
+                  title: 'Register',
+                  colour: const Color(0xff21b409),
+                  onPressed: () {
+                    Navigator.pushNamed(context, RegisterScreen.id);
+                  },
+                ),
+              ],
             ),
           ],
         ),
       ),
+
     );
   }
 }

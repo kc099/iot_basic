@@ -7,14 +7,13 @@ class MyLogin {
   const MyLogin();
 
   Future<void> myAsyncMethod(BuildContext context, VoidCallback onSuccess,
-      String email, String password) async {
-
-  }
+      String email, String password) async {}
 }
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
   static const String id = 'login_screen';
+
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -32,7 +31,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
-    print('called');
   }
 
   @override
@@ -48,11 +46,8 @@ class _LoginScreenState extends State<LoginScreen> {
             Flexible(
               child: SizedBox(
                 height: 200.0,
-                child: Image.asset('images/logo.png'),
+                child: Image.asset('images/logo.jpg'),
               ),
-            ),
-            const SizedBox(
-              height: 48.0,
             ),
             TextField(
               keyboardType: TextInputType.emailAddress,
@@ -78,28 +73,33 @@ class _LoginScreenState extends State<LoginScreen> {
             const SizedBox(
               height: 24.0,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Material(
-                color: Colors.lightBlueAccent,
-                borderRadius: const BorderRadius.all(Radius.circular(30.0)),
-                elevation: 5.0,
-                child: MaterialButton(
-                  onPressed: () {
-                    const MyLogin().myAsyncMethod(context, () {
-                      Navigator.pushNamed(context, RoomPage.id);
-                    }, email, password);
-                  },
-                  minWidth: 200.0,
-                  height: 42.0,
-                  child: const Text(
-                    'Log In',
-                    style: TextStyle(
-                      color: Colors.white,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Material(
+                    color: const Color(0xf00a1cce),
+                    borderRadius: const BorderRadius.all(Radius.circular(30.0)),
+                    elevation: 5.0,
+                    child: MaterialButton(
+                      onPressed: () {
+                        const MyLogin().myAsyncMethod(context, () {
+                          Navigator.pushNamed(context, RoomPage.id);
+                        }, email, password);
+                      },
+                      minWidth: 200.0,
+                      height: 42.0,
+                      child: const Text(
+                        'Log In',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
           ],
         ),

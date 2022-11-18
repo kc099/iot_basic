@@ -30,7 +30,7 @@ class _homepageState extends State<homepage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
               const ReusableCard(
-                colour: Colors.blueGrey,
+                colour: const Color(0x4f0a1cce),
                 text: 'Indus Smart Home',
               ),
               GestureDetector(
@@ -73,6 +73,21 @@ class _homepageState extends State<homepage> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        currentIndex: 0,
+        selectedItemColor: Colors.amber[800],
+        onTap: (value) {},
       ),
     );
   }
