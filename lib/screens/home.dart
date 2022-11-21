@@ -13,6 +13,8 @@ class homepage extends StatefulWidget {
 }
 
 class _homepageState extends State<homepage> {
+  int _selectedIndex = 0;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -27,50 +29,69 @@ class _homepageState extends State<homepage> {
       body: SafeArea(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-              const ReusableCard(
-                colour: const Color(0x4f0a1cce),
-                text: 'Indus Smart Home',
-              ),
-              GestureDetector(
-                onTap: () {
-                  print('livingroom pressed.');
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) {
-                        return RoomPage(
-                          mqttClient: widget.mqttClient,
-                        );
-                      },
+            children: <Widget>[Expanded(
+              child: ListView(
+                children: <Widget>[
+                  GestureDetector(
+                    onTap: () {
+                      print('livingroom pressed.');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return RoomPage(
+                              mqttClient: widget.mqttClient,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: ReusableCard(
+                      colour: (Colors.amber[100])!,
+                      text: 'Living Room',
                     ),
-                  );
-                },
-                child: const ReusableCard(
-                  colour: Colors.black26,
-                  text: 'Living Room',
-                ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      print('bedroom pressed');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return RoomPage(
+                              mqttClient: widget.mqttClient,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: ReusableCard(
+                      colour: (Colors.amber[100])!,
+                      text: 'Bed Room',
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      print('kitchen pressed.');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) {
+                            return RoomPage(
+                              mqttClient: widget.mqttClient,
+                            );
+                          },
+                        ),
+                      );
+                    },
+                    child: ReusableCard(
+                      colour: (Colors.amber[100])!,
+                      text: 'Kitchen',
+                    ),
+                  ),
+                ],
               ),
-              GestureDetector(
-                onTap: () {
-                  print('bedroom pressed');
-                },
-                child: const ReusableCard(
-                  colour: Colors.black26,
-                  text: 'Bed Room',
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  print('kitchen pressed.');
-                },
-                child: const ReusableCard(
-                  colour: Colors.black26,
-                  text: 'Kitchen',
-                ),
-              ),
-            ],
+            ),]
           ),
         ),
       ),
@@ -81,13 +102,21 @@ class _homepageState extends State<homepage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
+            icon: Icon(Icons.pie_chart),
+            label: 'Analytics',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Profile',
           ),
         ],
-        currentIndex: 0,
-        selectedItemColor: Colors.amber[800],
-        onTap: (value) {},
+        currentIndex: _selectedIndex,
+        selectedItemColor: const Color(0xff21b409),
+        onTap: (value) {
+          setState(() {
+            _selectedIndex = value;
+          });
+        },
       ),
     );
   }
