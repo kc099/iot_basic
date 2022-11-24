@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:iot_basic/components/rounded_button.dart';
 import 'package:iot_basic/screens/login_screen.dart';
 import 'package:iot_basic/screens/register_screen.dart';
+import 'package:iot_basic/network/mqtt.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
+   WelcomeScreen({Key? key}) : super(key: key);
   static const String id = 'welcome_screen';
+  final MQTTClientWrapper mqttClient = MQTTClientWrapper();
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  // late AnimationController controller;
-  // late Animation animation;
 
   @override
   void initState() {
@@ -64,7 +64,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
           ],
         ),
       ),
-
     );
   }
 }

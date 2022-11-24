@@ -1,19 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:iot_basic/constants.dart';
 import 'package:iot_basic/screens/home.dart';
-import 'package:iot_basic/screens/room.dart';
 import 'package:iot_basic/network/mqtt.dart';
 
-class MyLogin {
-  const MyLogin();
-
-  Future<void> myAsyncMethod(BuildContext context, VoidCallback onSuccess,
-      String email, String password) async {}
-}
-
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
   static const String id = 'login_screen';
+  final MQTTClientWrapper mqttClient = MQTTClientWrapper();
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -23,12 +16,6 @@ class _LoginScreenState extends State<LoginScreen> {
   late String email;
   late String password;
   final GlobalKey<FormState> _keyL = GlobalKey();
-
-  // Future<void> _initFirebase() async {
-  //   await Firebase.initializeApp(
-  //     options: DefaultFirebaseOptions.currentPlatform,
-  //   );
-  // }
 
   @override
   void initState() {
@@ -115,14 +102,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: MaterialButton(
                                     onPressed: () {
                                       if (_keyL.currentState!.validate()) {
-                                        // If the form is valid, display a snackbar. In the real world,
-                                        // you'd often call a server or save the information in a database.
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                              content: Text('Processing Data')),
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) {
+                                              return HomePage(
+                                                mqttClient: widget.mqttClient,
+                                              );
+                                            },
+                                          ),
                                         );
-                                        Navigator.pushNamed(context, homepage.id,);
                                       }
                                     },
                                     minWidth: 200.0,

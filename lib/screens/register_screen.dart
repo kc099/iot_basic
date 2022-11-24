@@ -1,13 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:iot_basic/constants.dart';
 import 'package:http/http.dart' as http;
-import 'package:iot_basic/screens/room.dart';
 
-class MyAuthenticate {
-  const MyAuthenticate();
+// class extending dart <String> datatype.
+// These methods can be called on strings used in this file.
+extension ExtString on String {
+  bool get isValidEmail {
+    final emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
+    return emailRegExp.hasMatch(this);
+  }
 
-  Future<void> myAsyncMethod(BuildContext context, VoidCallback onSuccess,
-      String email, String password) async {}
+  bool get isValidName{
+    final nameRegExp =  RegExp(r"^\s*([A-Za-z]{1,}([.,] |[-']| ))+[A-Za-z]+\.?\s*$");
+    return nameRegExp.hasMatch(this);
+  }
+
+  bool get isValidPassword{
+    final passwordRegExp =
+    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#<*~]).{8,}/pre>');
+    return passwordRegExp.hasMatch(this);
+  }
+
+  bool get isValidPhone{
+    final phoneRegExp = RegExp(r"^\+?0[0-9]{10}$");
+    return phoneRegExp.hasMatch(this);
+  }
+
 }
 
 class RegisterScreen extends StatefulWidget {
@@ -132,10 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                   elevation: 5.0,
                                   child: MaterialButton(
                                     onPressed: () async {
-                                      // Validate returns true if the form is valid, or false otherwise.
                                       if (_key.currentState!.validate()) {
-                                        // If the form is valid, display a snackbar. In the real world,
-                                        // you'd often call a server or save the information in a database.
                                         ScaffoldMessenger.of(context).showSnackBar(
                                           const SnackBar(
                                               content: Text('Processing Data')),
@@ -166,7 +181,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
             ),
-
           ],
         ),
       ),

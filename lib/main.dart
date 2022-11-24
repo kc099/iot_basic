@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:iot_basic/screens/home.dart';
-import 'package:iot_basic/screens/welcome_screen.dart';
-import 'package:iot_basic/screens/login_screen.dart';
-import 'package:iot_basic/screens/register_screen.dart';
+import './screens/home.dart';
+import './screens/welcome_screen.dart';
+import './screens/login_screen.dart';
+import './screens/register_screen.dart';
 import 'network/mqtt.dart';
 
 void main() {
@@ -19,10 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: WelcomeScreen.id,
       routes: {
-        WelcomeScreen.id: (context) => const WelcomeScreen(),
-        LoginScreen.id: (context) => const LoginScreen(),
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
         RegisterScreen.id: (context) => const RegisterScreen(),
-        homepage.id: (context) => homepage(mqttClient: mqttClient),
+        HomePage.id: (context) => HomePage(mqttClient: mqttClient),
       },
     );
   }
