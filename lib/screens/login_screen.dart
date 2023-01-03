@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:iot_basic/constants.dart';
-import 'package:iot_basic/screens/home.dart';
-import 'package:iot_basic/network/mqtt.dart';
+import '../constants.dart';
+import '../screens/home.dart';
+import '../network/mqtt.dart';
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);

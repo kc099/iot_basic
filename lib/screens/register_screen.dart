@@ -9,23 +9,6 @@ extension ExtString on String {
     final emailRegExp = RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
     return emailRegExp.hasMatch(this);
   }
-
-  bool get isValidName{
-    final nameRegExp =  RegExp(r"^\s*([A-Za-z]{1,}([.,] |[-']| ))+[A-Za-z]+\.?\s*$");
-    return nameRegExp.hasMatch(this);
-  }
-
-  bool get isValidPassword{
-    final passwordRegExp =
-    RegExp(r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#<*~]).{8,}/pre>');
-    return passwordRegExp.hasMatch(this);
-  }
-
-  bool get isValidPhone{
-    final phoneRegExp = RegExp(r"^\+?0[0-9]{10}$");
-    return phoneRegExp.hasMatch(this);
-  }
-
 }
 
 class RegisterScreen extends StatefulWidget {
@@ -102,6 +85,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return '*Required Email';
+                              } else if (!value.isValidEmail) {
+                                return '*Enter valid email';
                               }
                               return null;
                             },
@@ -142,23 +127,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 16.0),
                                 child: Material(
                                   color: const Color(0xff21b409),
-                                  borderRadius:
-                                  const BorderRadius.all(Radius.circular(30.0)),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(30.0)),
                                   elevation: 5.0,
                                   child: MaterialButton(
                                     onPressed: () async {
                                       if (_key.currentState!.validate()) {
-                                        ScaffoldMessenger.of(context).showSnackBar(
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
                                           const SnackBar(
                                               content: Text('Processing Data')),
                                         );
-                                        var response = await http.post(url, body: {});
+                                        var response =
+                                            await http.post(url, body: {});
                                         print(
                                             'Response status: ${response.statusCode}');
-                                        print('Response body: ${response.body}');
+                                        print(
+                                            'Response body: ${response.body}');
                                       }
                                     },
                                     minWidth: 200.0,

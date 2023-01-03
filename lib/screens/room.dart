@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:iot_basic/components/reusablecard.dart';
-import 'package:iot_basic/screens/home.dart';
+import 'home.dart';
 import '../network/mqtt.dart';
 
 const List<String> list = <String>['Edit', 'Delete'];
@@ -16,15 +15,56 @@ class RoomPage extends StatefulWidget {
 
 class _RoomPageState extends State<RoomPage> {
   int _selectedIndex = 0;
+  bool _isEditingText = false;
+  late TextEditingController _editingController;
+  String initialText = "Initial Text";
+
+  @override
+  void initState() {
+    super.initState();
+    _editingController = TextEditingController(text: initialText);
+  }
+
+  @override
+  void dispose() {
+    _editingController.dispose();
+    super.dispose();
+  }
+
+  Widget _editTitleTextField() {
+    if (_isEditingText) {
+      return SizedBox(
+        width: 100.0,
+        child: TextField(
+          onSubmitted: (newValue) {
+            setState(() {
+              initialText = newValue;
+              _isEditingText = false;
+            });
+          },
+          autofocus: true,
+          controller: _editingController,
+        ),
+      );
+    }
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isEditingText = true;
+        });
+      },
+      child: Text(initialText),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6.0, vertical: 10.0),
-          child: Column(children: <Widget>[
-            Row(
+        child: Column(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 6.0),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 GestureDetector(
@@ -45,57 +85,61 @@ class _RoomPageState extends State<RoomPage> {
                     );
                   },
                 ),
-                const Text('Device Name'),
-                 GestureDetector(
-                   onTap: (){
-                     showDialog<String>(
-                       context: context,
-                       builder: (BuildContext context) => AlertDialog(
-                         // title: const Text('AlertDialog Title'),
-                         content: const Text('Do you want to remove your device?'),
-                         actions: <Widget>[
-                           TextButton(
-                             onPressed: () => Navigator.pop(context, 'Cancel'),
-                             child: const Text('Cancel'),
-                           ),
-                           TextButton(
-                             onPressed: () => Navigator.pop(context, 'Delete'),
-                             child: const Text('Delete', style: TextStyle(color: Colors.red),),
-                           ),
-                         ],
-                       ),
-                     );
-                   },
-                   child: const Icon(
+                _editTitleTextField(),
+                GestureDetector(
+                  onTap: () {
+                    showDialog<String>(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        // title: const Text('AlertDialog Title'),
+                        content:
+                            const Text('Do you want to remove your device?'),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Cancel'),
+                            child: const Text('Cancel'),
+                          ),
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'Delete'),
+                            child: const Text(
+                              'Delete',
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  child: const Icon(
                     Icons.delete_outline_sharp,
                     size: 24,
+                  ),
                 ),
-                 ),
               ],
             ),
-            const SizedBox(
-              height: 150.0,
+          ),
+          const SizedBox(
+            height: 150.0,
+          ),
+          GestureDetector(
+            child: const Icon(
+              Icons.power_settings_new,
+              size: 167,
             ),
-            GestureDetector(
-              child: const Icon(
-                Icons.power_settings_new,
-                size: 147,
-              ),
-              onTap: () {
-                print('power pressed');
-              },
-            ),
-            const SizedBox(
-              height: 100.0,
-            ),
-            GestureDetector(
-              child: const ReusableCard(
-                colour: Colors.black26,
-                text: '',
-              ),
-            ),
-          ]),
-        ),
+            onTap: () {
+              print('power pressed');
+            },
+          ),
+          const SizedBox(
+            height: 100.0,
+          ),
+          // GestureDetector(
+          //   child: const ReusableCard(
+          //     colour: Colors.black26,
+          //     text: '',
+          //   ),
+          // ),
+        ]),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

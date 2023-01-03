@@ -19,13 +19,18 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  void updateState() {
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: getDrawerWidget(_selectedIndex, context, widget.mqttClient),
+        child: getDrawerWidget(
+            _selectedIndex, context, widget.mqttClient, updateState),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

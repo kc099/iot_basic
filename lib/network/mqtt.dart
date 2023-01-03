@@ -20,7 +20,7 @@ enum MqttSubscriptionState {
 class MQTTClientWrapper {
   // MQTTClientWrapper({required this.client});
   MqttServerClient client = MqttServerClient.withPort(
-      'f15a50344c474fb6a47b40009237f69b.s1.eu.hivemq.cloud', 'indusrain', 8883);
+      '8c5d200f81af441b9cf55516645d54ac.s2.eu.hivemq.cloud', 'indusrain', 8883);
 
   MqttCurrentConnectionState connectionState = MqttCurrentConnectionState.IDLE;
   MqttSubscriptionState subscriptionState = MqttSubscriptionState.IDLE;
